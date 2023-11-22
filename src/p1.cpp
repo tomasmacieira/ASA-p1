@@ -21,6 +21,8 @@ int main() {
         int max_height = 0;
         int cur_val = 0;
 
+        cout << "Altura: " << i << "\n";
+
         for (int w = 1; w <= plate_width; w++) {
             cur_val = 0;
             int max_val_i = 0;
@@ -45,13 +47,18 @@ int main() {
             }
             v[w] = max_val_i;
             cur_val = v[w];
+
+            cout << "valor de v[w]: " << v[w] << " com w= " << w << "\n";
         }
         if (i - max_height >= 0 && k[i - max_height] + cur_val > max_val) {
                 max_val = k[i - max_height] + cur_val;
             }
         fill(v.begin(), v.end(), 0);
         k[i] = max_val;
+
+        cout << "valor de k[i]: " << k[i] << " com i= " <<  i << "\n";
     }
+    cout << "res: " << "\n";
     cout << k[plate_height] << endl;
     return 0;
 }
