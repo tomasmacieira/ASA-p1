@@ -7,7 +7,7 @@ using namespace std;
 int main() {
     int plate_width, plate_height, num_of_pieces;
 
-    cin >> plate_width >> plate_height;
+    cin >> plate_height >> plate_width;
     cin >> num_of_pieces;
 
     vector<vector<int>> pieces(num_of_pieces, vector<int>(3));
@@ -17,30 +17,48 @@ int main() {
         cin >> pieces[i][0] >> pieces[i][1] >> pieces[i][2];
     }
 
+    int contador = 0;
+
     for (int i = 1; i <= plate_height; i++) {
-        for (int w = 1; w <= plate_width; w++) {
-            int max_val = 0;
-
-            for (int j = 0; j < num_of_pieces; j++) {
-                int piece_width = pieces[j][0];
-                int piece_height = pieces[j][1];
-                int piece_val = pieces[j][2];
-
-                if (w - piece_width >= 0 && i - piece_height >= 0) {
-                    if (k[i][w - piece_width] + k[i - piece_height][w] - k[i - piece_height][w - piece_width] + piece_val > max_val) {
-                        max_val = k[i][w - piece_width] + k[i - piece_height][w] - k[i - piece_height][w - piece_width] + piece_val;
-                    }
+        for (int j = 1; j <= plate_width; j++) {
+            for (int a = 1; a <= i; a++) {
+                k[i][j] = max(k[i][j], k[a][j] + k[i - a][j]);
+                printf("\nH-> i: %d, j: %d, a: %d, k[i][j]: %d\n", i, j, a, k[i][j]);
+                contador++;
+            }
+            for (int b = 1; b <= j; b++) {
+                k[i][j] = max(k[i][j], k[i][b] + k[i][j - b]);
+                printf("\nV-> i: %d, j: %d, b: %d, k[i][j]: %d\n", i, j, b, k[i][j]);
+                contador++;
+            }
+            for (const vector<int>& piece : pieces) {
+                if (piece[0] <= i && piece[1] <= j) {
+                    k[i][j] = max(k[i][j], k[i - piece[0]][j - piece[1]] + piece[2]);
+                    printf("\nPN-> i: %d, j: %d, k[i][j]: %d\n", i, j, k[i][j]);
+                    contador++;
                 }
-
-                if (w - piece_height >= 0 && i - piece_width >= 0) {
-                    if (k[i][w - piece_height] + k[i - piece_width][w] - k[i - piece_width][w - piece_height] + piece_val > max_val) {
-                        max_val = k[i][w - piece_height] + k[i - piece_width][w] - k[i - piece_width][w - piece_height] + piece_val;
-                    }
+                if (piece[1] <= i && piece[0] <= j) { // Rotação da peça
+                    k[i][j] = max(k[i][j], k[i - piece[1]][j - piece[0]] + piece[2]);
+                    printf("\nPR-> i: %d, j: %d, k[i][j]: %d\n", i, j, k[i][j]);
+                    contador++;
                 }
             }
-            k[i][w] = max_val;
         }
     }
+    cout << "---------------" << endl;
+    for (int w = 0; w <= plate_width; w++) {
+        for (int i = 0; i <= plate_height; i++) {
+            cout << k[i][w] << " ";
+        }
+        cout << endl;
+    }
+    cout << "---------------" << endl;
     cout << k[plate_height][plate_width] << endl;
+    cout << contador << endl;
     return 0;
 }
+
+
+
+
+
