@@ -6,7 +6,7 @@ int plate_height, plate_width, num_of_pieces;
 vector<vector<int>>k;
 vector<vector<int>>pieces;
 
-void parse_instancce() {
+void parse_instance() {
 
     int x, y, v;
     cin >> plate_height >> plate_width;
@@ -43,7 +43,7 @@ int compute() {
 }
 
 int main() {
-    parse_instancce();
+    parse_instance();
     int output = compute();
     cout << output << endl;
     return 0;
