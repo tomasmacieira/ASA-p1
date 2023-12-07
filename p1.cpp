@@ -1,27 +1,30 @@
-// ASA2023 P1 - Tomás Macieira & Guilherme Henriques
-
 #include <iostream>
 #include <vector>
 using namespace std;
 
-int main() {
-    int plate_width, plate_height, num_of_pieces;
+int plate_height, plate_width, num_of_pieces;
+vector<vector<int>>k;
+vector<vector<int>>pieces;
 
+void parse_instancce() {
+
+    int x, y, v;
     cin >> plate_height >> plate_width;
     cin >> num_of_pieces;
 
-    vector<vector<int>> k(plate_height + 1, vector<int>(plate_width + 1, 0));
-    vector<vector<int>> pieces(plate_height + 1, vector<int>(plate_width + 1, 0));
+    k.resize(plate_height + 1, vector<int>(plate_width + 1, 0));
+    pieces.resize(plate_height + 1, vector<int>(plate_width + 1, 0));
 
     for (int i = 0; i < num_of_pieces; i++) {
-        int x, y, v;
         cin >> x >> y >> v;
         if (x <= plate_height && y <= plate_width)
             pieces[x][y] = v;
         if (y <= plate_height && x <= plate_width)
             pieces[y][x] = v;
     }
+}
 
+int compute() {
     for (int i = 1; i <= plate_height; i++) {
         for (int j = 1; j <= plate_width; j++) {
             k[i][j] = pieces[i][j];
@@ -36,6 +39,12 @@ int main() {
             }
         }
     }
-    cout << k[plate_height][plate_width] << endl;
+    return k[plate_height][plate_width];
+}
+
+int main() {
+    parse_instancce();
+    int output = compute();
+    cout << output << endl;
     return 0;
 }
