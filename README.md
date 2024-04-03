@@ -1,7 +1,7 @@
-# ASA 2023- Project 1
+# ASA 2023 - Project 1
 
 ## Introduction
-This project was made in the Analysis and synthesis of algorithms course
+This project was made in the Analysis and synthesis of algorithms course. Made to deepen our knowledge about dynamic programming
 
 ## Description
 Given a plate of X & Y dimensions, and N tiles with values V, by cutting the plate into smaller ones,
